@@ -34,7 +34,7 @@ func main() {
 	png.Encode(os.Stdout, img) // NOTE: ignoring errors
 }
 
-func mandelbrot(z complex128) color.Color {
+func mandelbrot(z complex128) color.RGBA {
 	const iterations = 200
 	const contrast = 15
 
@@ -42,10 +42,10 @@ func mandelbrot(z complex128) color.Color {
 	for n := uint8(0); n < iterations; n++ {
 		v = v*v + z
 		if cmplx.Abs(v) > 2 {
-			return color.YCbCr{0, 0, contrast * n}
+			return color.RGBA{contrast * (n + 2), contrast * (n + 1), contrast * n, 255}
 		}
 	}
-	return color.YCbCr{255, 255, 255}
+	return color.RGBA{255, 255, 255, 255}
 }
 
 //!-
