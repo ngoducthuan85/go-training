@@ -36,6 +36,9 @@ func main() {
 			if math.IsNaN(ax) || math.IsNaN(ay) || math.IsNaN(bx) || math.IsNaN(by) || math.IsNaN(cx) || math.IsNaN(cy) || math.IsNaN(dx) || math.IsNaN(dy) {
 				continue
 			}
+			if math.IsInf(ax, 0) || math.IsInf(ay, 0) || math.IsInf(bx, 0) || math.IsInf(by, 0) || math.IsInf(cx, 0) || math.IsInf(cy, 0) || math.IsInf(dx, 0) || math.IsInf(dy, 0) {
+				continue
+			}
 			fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
 				ax, ay, bx, by, cx, cy, dx, dy)
 		}
