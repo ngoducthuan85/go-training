@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
+	if len(os.Args) < 3 {
 		log.Fatalln("Not enough parameters. Add 2 strings to the parameters!")
 	}
 	firstText := os.Args[1]
