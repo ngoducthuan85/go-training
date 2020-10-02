@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -43,13 +44,16 @@ func commaBuf(s string) string {
 	if n <= 3 {
 		return s
 	}
+	digits := "0123456789"
 	var buf bytes.Buffer
 	count := 3 - n%3
 	for i := 0; i < n; i++ {
 		fmt.Fprintf(&buf, "%c", s[i])
-		count++
-		if (count%3 == 0) && (i != n-1) {
-			buf.WriteString(",")
+		if strings.Contains(digits, string(s[i])) {
+			count++
+			if (count%3 == 0) && (i != n-1) {
+				buf.WriteString(",")
+			}
 		}
 	}
 	return buf.String()
