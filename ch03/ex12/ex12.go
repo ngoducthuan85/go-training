@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"sort"
 	"strings"
@@ -9,7 +10,7 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Not enough parameters. Add 2 strings to the parameters!")
+		log.Fatalln("Not enough parameters. Add 2 strings to the parameters!")
 	}
 	firstText := os.Args[1]
 	secondText := os.Args[2]
