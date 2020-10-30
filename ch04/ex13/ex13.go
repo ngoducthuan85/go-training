@@ -74,7 +74,7 @@ func (m Movie) writePoster() error {
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Fprintln(os.Stderr, "usage: poster MOVIE_TITLE")
+		fmt.Fprintln(os.Stderr, "usage: go run ex13.go MOVIE_TITLE")
 		os.Exit(1)
 	}
 	title := os.Args[1]
