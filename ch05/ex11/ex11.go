@@ -28,28 +28,38 @@ var prereqs = map[string]map[string]bool{
 	"networks":             {"operating system": true},
 	"operating system":     {"data structures": true, "computer organization": true},
 	"programming language": {"data structures": true, "computer organization": true},
+	"linear algebra":       {"calculus": true},
 }
 
 //!-table
 
 //!+main
 func main() {
-	for i, course := range topoSort(prereqs) {
+	result, loopIsFound := topoSort(prereqs)
+	if loopIsFound {
+		fmt.Println("Loop is found!")
+		return
+	}
+	for i, course := range result {
 		fmt.Printf("%d:\t%s\n", i+1, course)
 	}
 }
 
-func topoSort(m map[string]map[string]bool) []string {
+func topoSort(m map[string]map[string]bool) ([]string, bool) {
 	var order []string
-	seen := make(map[string]bool)
+	var loopIsFound = false
+	seen := make(map[string]int) // 0: 来ていない、 1: 来ているがvisitしていない、 2: visitした
 	var visitAll func(items map[string]bool)
 
 	visitAll = func(items map[string]bool) {
 		for item := range items {
-			if !seen[item] {
-				seen[item] = true
+			if seen[item] == 0 {
+				seen[item] = 1
 				visitAll(m[item])
 				order = append(order, item)
+				seen[item] = 2
+			} else if seen[item] == 1 {
+				loopIsFound = true
 			}
 		}
 	}
@@ -59,7 +69,7 @@ func topoSort(m map[string]map[string]bool) []string {
 		keys[key] = true
 	}
 	visitAll(keys)
-	return order
+	return order, loopIsFound
 }
 
 //!-main
