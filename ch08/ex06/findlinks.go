@@ -21,8 +21,10 @@ import (
 
 var tokens = make(chan struct{}, 20)
 
-func crawl(url string) []string {
-
+func crawl(url string, d int) []string {
+	if d > 1 {
+		return []string{}
+	}
 	fmt.Println(url)
 
 	tokens <- struct{}{}
@@ -60,7 +62,7 @@ func main() {
 	for i := 0; i < 20; i++ {
 		go func() {
 			for link := range unseenLinks {
-				foundLinks := crawl(link.URL)
+				foundLinks := crawl(link.URL, link.Depth)
 				go func(depth int) {
 					worklist <- &Links{foundLinks, depth + 1}
 				}(link.Depth)
