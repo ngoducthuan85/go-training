@@ -68,7 +68,7 @@ func display(path string, v reflect.Value) {
 	case reflect.Map:
 		for _, key := range v.MapKeys() {
 			display(fmt.Sprintf("%s[%s]", path,
-				formatAtom(key)), v.MapIndex(key))
+			formatMapKey(key)), v.MapIndex(key))
 		}
 	case reflect.Ptr:
 		if v.IsNil() {
